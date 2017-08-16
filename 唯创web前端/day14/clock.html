@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        #clock{
+            position: relative;
+            height: 450px;
+            width: 450px;
+            border:5px solid #000;
+            border-radius: 50%;
+            top: 100px;
+            margin:0 auto;
+        }
+
+        #dial li{
+            width: 5px;
+            height: 15px;
+            background: #000;
+            list-style:none;
+            position: absolute;
+            left: 225px;
+            top: 0;
+            transform-origin: 0 225px;
+        }
+
+        #hour{
+            width: 8px;
+            height: 80px;
+            background: #000;
+            position: absolute;
+            left: 225px;
+            top:145px;
+            transform-origin: bottom;
+        }
+        #minute{
+            width: 8px;
+            height: 120px;
+            background: #ccc;
+            position: absolute;
+            left: 225px;
+            top:105px;
+            transform-origin: bottom;
+        }
+        #second{
+            width: 4px;
+            height: 150px;
+            background: #f00;
+            position: absolute;
+            left: 225px;
+            top:75px;
+            transform-origin: bottom;
+        }
+    </style>
+</head>
+<body>
+<div id="clock">
+    <ul id="dial">
+    <li></li>
+    </ul>
+    <div id="hour"></div>
+    <div id="minute"></div>
+    <div id="second"></div>
+</div>
+<script>
+    (function () {
+        var oDial = document.getElementById("dial");
+        var oHour = document.getElementById("hour");
+        var oMinute = document.getElementById("minute");
+        var oSecond= document.getElementById("second");
+        for(i=0;i < 60 ;i++){
+            oDial.innerHTML +="<li style='transform: rotate( " + i * 6 + "deg)'></li>" ;
+            if(i%5 == 0 ){
+                var oLi = oDial.getElementsByTagName("li");
+                oLi[i].style.height = 25 + "px";
+            }
+        }
+        run();
+        setInterval(run, 1000);
+
+        function run() {
+            var now = new Date();
+            var nowSecond = now.getSeconds();
+            var nowMinute = now.getMinutes() + nowSecond /60;
+            var nowHour = now.getHours() + nowMinute /60;
+            oSecond.style.transform = "rotate(" + nowSecond * 6 +"deg)";
+            oMinute.style.transform = "rotate(" + nowMinute * 6 +"deg)";
+            oHour.style.transform = "rotate(" + nowHour * 30 +"deg)";
+        }
+    })();
+</script>
+</body>
+</html>
