@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body,html{
+            width: 100%;
+            height: 100%;
+        }
+        #container{
+            width: 100%;
+            height: 100%;
+            background: url("img/bg.jpg");
+            position: relative;
+        }
+        #container .img{
+            width: 125px;
+            height: 125px;
+            border:5px solid #fff;
+            box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: -500px;
+            left: -500px;
+            transition: all 1s ease;
+            cursor: pointer;
+        }
+        #container .img span{
+            width: 100%;
+            height: 100%;
+            display: block;
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div id="container">
+    <script>
+        (function () {
+            var ROW = 4,COL = 6 ,NUM = ROW * COL ,BIG_H = 500 ,BIG_W = 750 ,THUMBS_W = THUMBS_H = 125 ;
+            var oContainer = document.getElementById("container");
+            var count = 0;//判断加载是否已经完成
+            //预加载
+            for(i = 0;i < NUM ;i++){
+                var oBigImg = new Image();//创建一个DOM对象进行图片的预加载event.onload
+
+                oBigImg.onload = function () {
+                    count++;
+                    if(count ==NUM * 2){
+                        loadSuccess();
+                    }
+                };
+                oBigImg.src = "img/"+ (i+1) +".jpg";
+                var oThumbsImg = new Image();
+                oThumbsImg.onload = function () {
+                    count++;
+                    if(count == NUM * 2){
+                        loadSuccess();
+                    }
+                };
+                oThumbsImg.src = "img/thumbs/"+ (i + 1) +".jpg";
+            };
+
+            var  index = 0;
+            function loadSuccess() {
+            for(var i = 0 ; i < ROW ;i++){
+                for(var j = 0;j < COL ;j++){
+                    index++;
+                    var oDiv = document.createElement("div");
+                    oDiv.className = "img";
+                    oDiv.style.background = "url(img/thumbs/" + index + ".jpg)";
+                    //给div对象自定义属性pos，保存坐标
+                    oDiv.pos = {
+                            row : i,
+                            col : j
+                    };
+                    oDiv.index = index;     //给odiv赋一个index值，才会有数组aImg
+                    oDiv.innerHTML = "<span></span>";//为大图片的拼接块
+                    oContainer.appendChild(oDiv);
+
+                }
+            };
+                aImg = oContainer.getElementsByTagName("div");
+                aImgWidth = aImg[0].offsetWidth;
+                aImgHeight = aImg[0].offsetHeight;
+                TJianju = ( oContainer.offsetWidth - aImgWidth * COL )/(COL +1);
+                THangju = ( oContainer.offsetHeight - aImgHeight * ROW )/(ROW +1);
+                for(var i = 0;i < NUM;i++){
+                    aImg[i].style.left =(TJianju + aImgWidth ) * aImg[i].pos.col + TJianju  + "px";
+                    aImg[i].style.top =(THangju + aImgHeight ) * aImg[i].pos.row + THangju + "px";
+                    aImg[i].style.transform = "rotate(" + (Math.random() * 40 - 20) + "deg)";
+                    aImg[i].style.transitionDelay = (NUM - i) * 100 +"ms";
+                }
+            }
+            var bFlag = true; //定义鼠标单击一下是TRUE，下一次是FALSE，在下一次回到TRUE，这是事件只存在两种单击事件
+            var fBigGapCol = (oContainer.offsetWidth - BIG_W)/2;
+            var fBigGapRow = (oContainer.offsetHeight - BIG_H) / 2;
+            //绑定点击事件
+            oContainer.onclick = function (e) {
+                if(this != e.target){
+//                    console.log(e.target);
+                    if(bFlag){
+                   for(var i = 0; i < aImg.length; i++)
+                   {
+                       aImg[i].style.top =  fBigGapRow + aImg[i].pos.row * THUMBS_H  + "px";
+                       aImg[i].style.left = fBigGapCol + aImg[i].pos.col * THUMBS_W  + "px";
+                       aImg[i].style.borderWidth = "1px";
+                       aImg[i].style.transform = '';
+                       aImg[i].style.transitionDelay = '';
+//                       aImg[i].style.display = "none";
+                       var oSpan = aImg[i].getElementsByTagName("span")[0];
+                      
+                       oSpan[i].style.opacity = 1;
+                       if(e.target.className == "img"){//div
+                           index = e.target.index;
+                       }else{//span
+                           index = e.target.parentNode.index;
+                       }
+                       oSpan[i].style.backgroundImage = "url(img/"+ index +".jpg)";
+
+                   }
+                }
+                else {
+                        for(var i = 0;i < NUM;i++){
+                            aImg[i].style.left =(TJianju + aImgWidth ) * aImg[i].pos.col + TJianju  + "px";
+                            aImg[i].style.top =(THangju + aImgHeight ) * aImg[i].pos.row + THangju + "px";
+                            aImg[i].style.transform = "rotate(" + (Math.random() * 40 - 20) + "deg)";
+//                            aImg[i].style.transitionDelay = (NUM - i) * 100 +"ms";
+                        }
+                    }
+                    bFlag = !bFlag;//bFlag的值在TRUE和FALSE来回切换的关键！！
+                }
+            }
+        })();
+    </script>
+</div>
+</body>
+</html>
