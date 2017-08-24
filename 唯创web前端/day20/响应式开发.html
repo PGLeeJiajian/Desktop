@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <style>
+        html,body{
+            font-size:10px;
+        }
+        *{
+            margin: 0;
+            padding:0;
+        }
+       h1{
+           margin: 30px auto;
+           background: #cccccc;
+           color: #ffffff;
+           height: 5rem;
+           width: 80rem;
+           text-align: center;
+           line-height: 5rem;
+       }
+
+        #banner{
+         width: 80rem;
+        margin:0 auto;
+          }
+        #banner img{
+            width: 80rem;
+            display: block;
+        }
+        #content{
+            width: 80rem;
+            height: 30rem;
+            margin: 0 auto;
+
+        }
+        #left,#right{
+            height:30rem;
+            float: left;
+            display: table;
+
+        }
+        #left{
+            width: 50rem;
+            background: #00ff00;
+            margin-right: 3rem;
+
+        }
+        #right{
+            width: 27rem;
+            background: #ff0;
+        }
+        #left p,#right p{
+            display: table-cell;
+            vertical-align: middle;
+        }
+        #footer{
+            clear: both;
+        }
+        @media (max-width: 80rem) {
+            #header{
+                width: 100%;
+            }
+            #nav{
+                width: 100%;
+            }
+            #footer{
+                width: 100%;
+            }
+            #content{
+                width: 100%;
+            }
+            h1{
+                width: 100%;
+            }
+            #banner{
+                width: 100%;
+            }
+            #banner img{
+                width: 100%;
+            }
+            #left{
+                width: 62.5%;
+                margin-right: 3.75%;
+            }
+            #right{
+                width: 33.75%;
+            }
+
+        }
+        @media (max-width:50rem ){
+            #left,#right{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+  <div id="header">
+      <h1>页头</h1>
+  </div>
+<div id="nav">
+    <h1>导航</h1>
+</div>
+
+<div id="banner">
+    <img src="01.jpg" alt="">
+</div>
+
+  <div id="content">
+      <div id="left">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sem erat, egestas quis luctus ut, rhoncus vitae risus. Integer venenatis libero sit amet sapien dictum, quis bibendum mi volutpat. Cras pretium quam quis magna facilisis, eget feugiat nisi lacinia.</p>
+      </div>
+      <div id="right">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sem erat, egestas quis luctus ut, rhoncus vitae risus. Integer venenatis libero sit amet sapien dictum, quis bibendum mi volutpat. Cras pretium quam quis magna facilisis, eget feugiat nisi lacinia.</p>
+      </div>
+  </div>
+  <div id="footer">
+      <h1>页脚</h1>
+  </div>
+</body>
+</html>
